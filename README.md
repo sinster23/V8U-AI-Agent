@@ -3,8 +3,8 @@
 V8U is a sleek, intelligent AI agent that helps you study better, faster, and smarter. It supports text input, file uploads (PDFs, DOCX, TXT, Excel, images), speech-to-text via microphone, and delivers answers with beautifully rendered math equations and code blocks — all in a clean chat interface.
 
 <p align="center">
-  <img src="https://github.com/sinster23/Screenshots/blob/main/V8U%20project%20ss/ss1.png" alt="ss1" width="65%" style="margin-right: 10px;" />
-  <img src="https://github.com/sinster23/Screenshots/blob/main/V8U%20project%20ss/ss2.png" alt="ss2" width="65%" />
+  <img src="https://github.com/sinster23/Screenshots/blob/main/V8U%20project%20ss/ss1.png" alt="ss1" width="75%" style="margin-right: 10px;" />
+  <img src="https://github.com/sinster23/Screenshots/blob/main/V8U%20project%20ss/ss2.png" alt="ss2" width="75%" />
 </p>
 
 ---
