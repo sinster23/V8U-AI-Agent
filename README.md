@@ -60,11 +60,11 @@ npm install
 npm start
 ```
 ### 5. Upload Files + Ask Away!
-- Click the + icon to upload a document
+✅ Click the + icon to upload a document
 
-- Ask your question in the input field or via microphone
+✅ Ask your question in the input field or via microphone
 
-- Hit Send and watch the magic 🪄
+✅ Hit Send and watch the magic 🪄
 
 ---
 
@@ -83,13 +83,13 @@ npm start
 ---
 
 ## 🧠 Example Prompts
-"Explain Newton's Laws with equations"
+- "Explain Newton's Laws with equations"
 
-"How to reverse a linked list in C++?"
+- "How to reverse a linked list in C++?"
 
-"Summarize this uploaded PDF"
+- "Summarize this uploaded PDF"
 
-"What is a neural network?"
+- "What is a neural network?"
 
 ---
 
