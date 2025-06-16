@@ -40,19 +40,19 @@ V8U is a sleek, intelligent AI agent that helps you study better, faster, and sm
 git clone https://github.com/sinster23/V8U-Ai-Agent.git
 cd V8U-Ai-Agent
 ```
-###2. Start the Backend
+### 2. Start the Backend
 ```bash
 cd server
 npm install
 node server.js
 ```
-###3. Start the Frontend
+### 3. Start the Frontend
 ```bash
 cd client
 npm install
 npm start
 ```
-###4. Upload Files + Ask Away!
+### 4. Upload Files + Ask Away!
 - Click the + icon to upload a document
 
 - Ask your question in the input field or via microphone
