@@ -76,8 +76,8 @@ npm start
 │   ├── src/components/ChatWindow.js
 │   └── ...
 ├── backend/
-│   ├── index.js
-│   └── fileHandlers.js
+│   ├── server.js
+│   └── prompt.js
 ```
 
 ---
