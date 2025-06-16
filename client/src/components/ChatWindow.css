@@ -1,0 +1,488 @@
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #343541;
+  /* Darker background, similar to ChatGPT */
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+
+  /* A modern, clean font */
+  &::-webkit-scrollbar {
+    width: 0px;
+    /* For vertical scrollbars */
+    height: 0px;
+    /* For horizontal scrollbars */
+    background: transparent;
+    /* Make it transparent */
+  }
+
+  scrollbar-width: none;
+  /* Firefox */
+  scrollbar-color: transparent transparent;
+}
+
+.empty-state {
+  flex: 1;
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  text-align: center;
+  color: #8e8ea0;
+  margin-left: 2rem;
+}
+
+.empty-text {
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 14px;
+}
+.subtext{
+  width: 100%;
+  font-size: 25px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: flex-start;
+}
+
+.suggestions {
+  width: 100%;
+  min-width: 5rem;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.suggestion-btn {
+  width: 80%;
+  text-align: left;
+  border: 1px solid #414144;
+  border-style: hidden;
+  border-radius: 1%;
+  border-bottom: 1px solid #414144;
+  background-color: transparent;
+  color: #6c6d6f;
+  padding: 8px 14px;
+  ;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.suggestion-btn:hover {
+  background-color: #45474d;
+  color: #ffffff;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  /* Remove direct padding here as the inner content will handle it */
+  padding: 0 20px;
+  /* Keep horizontal padding for scrollbar, but content will center */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center the messages-content div */
+  padding-bottom: 100px;
+  /* Adjust as needed based on input-wrapper height */
+}
+
+/* NEW: Styles for the centered messages content */
+.messages-content {
+  width: 100%;
+  /* Take full width of its parent (messages) */
+  max-width: 768px;
+  /* Limit width to match input field */
+  margin: 0 auto;
+  /* Center the content */
+  display: flex;
+  /* Make it a flex container for message bubbles */
+  flex-direction: column;
+  /* Stack message bubbles vertically */
+  padding-top: 20px;
+  /* Add top padding inside the centered area */
+}
+
+
+.message {
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  /* Slightly less rounded corners */
+  max-width: 70%;
+  /* Message bubble max width within the centered container */
+  white-space: pre-wrap;
+  line-height: 1.6;
+  /* Improved readability */
+  font-size: 15px;
+  /* Slightly smaller font size */
+  word-break: break-word;
+  /* Ensure long words break */
+}
+
+.message.user {
+  background-color: #343541;
+  /* User messages blend more with background */
+  align-self: flex-end;
+  /* Align to the right within messages-content */
+  color: #ececf1;
+  /* Lighter text color for contrast */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  /* Subtle shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Very subtle border */
+  border-radius: 15px;
+}
+
+.message.bot {
+  background-color: #444654;
+  /* Distinct background for bot messages */
+  border: none;
+  /* Remove border for bot messages */
+  align-self: flex-start;
+  /* Align to the left within messages-content */
+  color: #ececf1;
+  /* Lighter text color */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  /* Subtle shadow */
+}
+
+
+/* src/components/ChatWindow.css */
+
+/* ... (previous styles for .chat-window, .messages, .messages-content, .message, etc. remain the same) ... */
+
+.input-wrapper {
+  width: 100%;
+  background-color: transparent;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+  max-width: 720px;
+  /* Adjust based on your layout */
+}
+
+
+.input-inner {
+  width: 100%;
+  max-width: 768px;
+  /* Defines the maximum width and helps with centering */
+  background-color: #40414f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: flex-end;
+  /* Aligns content (textarea) to the bottom when it's shorter */
+  padding: 0;
+  /* Remove padding from here; the textarea will handle it */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.upload-button {
+  position: absolute;
+  /* Position absolutely within input-inner */
+  bottom: 12px;
+  /* Aligns with textarea's bottom padding */
+  left: 16px;
+  /* Position from the left edge of input-inner */
+  background: transparent;
+  border: none;
+  /* No border for the button itself */
+  color: #8e8ea0;
+  /* Color similar to send button */
+  font-size: 24px;
+  /* Larger for a plus icon */
+  cursor: pointer;
+  padding: 0;
+  /* No internal padding */
+  width: 24px;
+  /* Fixed width */
+  height: 24px;
+  /* Fixed height */
+  display: flex;
+  /* For centering the plus icon */
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  /* Make it round */
+  transition: color 0.2s ease, background-color 0.2s ease;
+  z-index: 1;
+  /* Ensure it's above textarea text if needed */
+  /* Remove default button styling for label elements that might inherit it */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.upload-button:hover:not(:disabled) {
+  color: #acacbf;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Subtle background on hover */
+}
+
+/* Specific styling for disabled upload button (label) */
+.upload-button[disabled] {
+  /* Target disabled attribute on label */
+  color: #555666;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.chat-input {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  border: none;
+  resize: none;
+  outline: none;
+  color: #ececf1;
+  font-size: 16px;
+  line-height: 1.5;
+  /* For a 16px font, this makes the line height 24px */
+  max-height: 200px;
+  /* Maximum height before scrolling */
+  /* IMPORTANT: Adjusted padding-left to make space for the upload button */
+  /* 16px (normal left padding) + 24px (button width) + 10px (gap) = 50px */
+  padding: 12px 50px 12px 50px;
+  /* Top, Right, Bottom, Left (increased left) */
+  min-height: 48px;
+  /* Adjusted: (12px top + 24px line-height + 12px bottom) = 48px for one line + padding */
+  box-sizing: border-box;
+  /* Crucial: ensures padding is included in the min/max height */
+  overflow-wrap: break-word;
+
+  /* Hide scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    width: 0px;
+    /* For vertical scrollbars */
+    height: 0px;
+    /* For horizontal scrollbars */
+    background: transparent;
+    /* Make it transparent */
+  }
+
+  scrollbar-width: none;
+  /* Firefox */
+  scrollbar-color: transparent transparent;
+  /* Firefox (thumb track) */
+}
+
+.mic-button {
+  position: absolute;
+  bottom: 12px;
+  right: 52px; /* Just to the left of send-button (16px + 36px gap) */
+  background: transparent;
+  border: none;
+  color: #8e8ea0;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease-in-out;
+}
+
+.mic-button:hover {
+  color: #acacbf;
+}
+
+.listening {
+  position: absolute;
+  bottom: 12px;
+  right: 52px; /* Just to the left of send-button (16px + 36px gap) */
+  background: transparent;
+  border: none;
+  color: rgb(139, 165, 177);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+
+
+/* Adjust the send button position based on the new padding */
+.send-button {
+  position: absolute;
+  bottom: 10px;
+  /* Aligns with the 12px bottom padding of the textarea */
+  right: 16px;
+  /* Aligns with the 16px right padding of the textarea */
+  background: transparent;
+  border: none;
+  color: #8e8ea0;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  /* Smaller internal padding for the button visual */
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  /* Helps in vertical centering if button icon is smaller */
+  align-items: center;
+  /* Vertically center icon if needed */
+  justify-content: center;
+  /* Horizontally center icon if needed */
+}
+
+.send-button:hover {
+  color: #acacbf;
+}
+
+
+.message {
+  transition: background 0.3s, transform 0.2s;
+}
+
+.chat-input,
+.input-inner {
+  color: #acacbf;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.input-inner:focus-within {
+  box-shadow: 0 0 0 2px #444654, 0 0 0 4px #8e8ea0;
+  /* Slightly different focus ring */
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px;
+  background-color: #343541;
+  color: #ccc;
+  border-radius: 10px;
+  width: fit-content;
+  margin: 6px 12px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.file-pill-wrapper {
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 3px;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.fade-in {
+  height: 40px; /* or however tall your pill is */
+  opacity: 1;
+}
+
+.fade-out {
+  height: 0;
+  opacity: 0;
+}
+
+.file-pill {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #343541;
+  color: gray;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.remove-file {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.remove-file:hover {
+  color: #fff;
+}
+

@@ -1,0 +1,12 @@
+/* src/App.css */
+
+.app {
+  display: flex;
+  height: 100%;
+  background-color: #0d1117;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
